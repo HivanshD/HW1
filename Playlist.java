@@ -6,20 +6,21 @@
  *  Stony Brook ID: 114591135
  */
 
-public class Playlist extends SongRecord implements Cloneable {
-    static final int MAX = 50;
+public class Playlist implements Cloneable {
     SongRecord s[];
-    public int currentSize;
+    private int currentSize;
+    static final int MAX = 50;
 
     public Playlist() {
         s = new SongRecord[MAX];
         currentSize = 0;
     }
 
-    public Object Clone() {
-        Object newObject = new Playlist();
-        return newObject;
+    public Object Clone() throws CloneNotSupportedException {
+        currentSize++;
+        return super.clone();
     }
+
 
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -28,10 +29,8 @@ public class Playlist extends SongRecord implements Cloneable {
         if (!(obj instanceof SongRecord)) {
             return false;
         }
-        SongRecord a = (SongRecord) obj;
+        SongRecord c = (SongRecord)obj;
         return
-
-
     }
 
 
@@ -51,9 +50,9 @@ public class Playlist extends SongRecord implements Cloneable {
                 s[x + 1] = s[x];
             s[position] = song;
             currentSize++;
-        } catch (IllegalArgumentException) {
+        } catch (IllegalArgumentException e) {
             System.out.println("position is not within valid range");
-        } catch (FullPlaylistException) {
+        } catch (FullPlaylistException e) {
             System.out.println("The Playlist is full, no more songs can be added.");
         }
     }
@@ -84,11 +83,18 @@ public class Playlist extends SongRecord implements Cloneable {
 
 
     public void printAllSongs() {
-        {
-            for(int x = 0; x < currentSize; x++)
-                System.out.print(s[x]);
-        }
+        System.out.printf("%-21s%-26s%19s%06d", "Song#", "Title", "Artist", "Length\n"
+        + "------------------------------------------------");
+
+    }
+
+    public static Playlist getSongsByArtist(Playlist originalList, String artist) {
+        Playlist ap = new Playlist();
+
     }
 
 
-}
+
+    public String toString() {
+    }
+

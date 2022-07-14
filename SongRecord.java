@@ -13,16 +13,12 @@ public class SongRecord {
     private int seconds;
 
 //default constructor
-    SongRecord() {
-        title = "";
-        artist = "";
-        minutes = 0;
-        seconds = 0;
+    SongRecord(String title, String artist, int minutes, int seconds) {
     }
 
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
     public void setTitle(String title) {
         this.title = title;
@@ -44,9 +40,11 @@ public class SongRecord {
             this.minutes = minutes;
         }
     }
+
     public int getSeconds() {
         return this.seconds;
     }
+
     public void setSeconds(int seconds) {
         if (seconds < 0 || seconds > 59) {
             throw new IllegalArgumentException("invalid value for seconds");
@@ -55,7 +53,20 @@ public class SongRecord {
             this.seconds = seconds;
         }
     }
+
+
     public String toString() {
         return String.format("%-21s%-26s%19s%06d", title, artist, minutes, seconds);
+    }
+
+
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+        SongRecord s = (SongRecord)obj;
+
+        return this.title.equals(s.title) && this.artist.equals(s.title)
+                && this.minutes == s.minutes && this.seconds == s.seconds;
     }
 }
